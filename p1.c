@@ -10,7 +10,7 @@ int main (int argc, char ** argv) {
 	ssize_t linelen;
 	long long int * nums;
 	long long int count;
-	long long int i, j;
+	long long int i, j, k;
 
 	if (argc != 1) {
 		printf("pass input in on stdin, one entry per line\n");
@@ -39,6 +39,17 @@ while ((linelen = getline(&line, &linecap, stdin)) > 0)
 		}
 	}
 done:
+	for (i = 0; i < count; i++) {
+		for (j = i+1; j < count; j++) {
+			for (k = j+1; k < count; k++) {
+				if (2020 == nums[i] + nums[j] + nums[k]) {
+					printf("%lld\n", nums[i] * nums[j] * nums[k]);
+					goto done2;
+				}
+			}
+		}
+	}
+done2:
 	free(nums);
 	return 0;
 }

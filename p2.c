@@ -10,6 +10,7 @@ int main (int argc, char ** argv) {
 	size_t linecap = 0;
 	ssize_t linelen;
 	int valids = 0;
+	int p2valids = 0;
 	int i = 0;
 	int low = 0;
 	char lowfound;
@@ -76,6 +77,16 @@ while ((linelen = getline(&line, &linecap, stdin)) > 0)
 						i++;
 					}
 				} else {
+					if ((strlen(line) > (i + low)) &&
+					(strlen(line) > (i + high))) {
+						printf("matching %c to %c, %c\n", match, line[i+low-1], line[i+high-1]);
+						if (line[i + low-1] == match)
+							if (line[i+high-1] != match)
+								p2valids++;
+						if (line[i+high-1] == match)
+							if (line[i+low-1] != match)
+								p2valids++;
+					}
 					while (i < strlen(line)) {
 						if (match == line[i])
 							count++;
@@ -91,5 +102,6 @@ while ((linelen = getline(&line, &linecap, stdin)) > 0)
 	
 }
 	printf("%d\n", valids);
+	printf("%d\n", p2valids);
 	return 0;
 }
